@@ -1,0 +1,6 @@
+.scroll-button {
+  @apply bg-white w-8 h-8 rounded-full flex items-center justify-center cursor-pointer;
+}
+.scroll-button:hover {
+  @apply text-red-600;
+}

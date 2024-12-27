@@ -1,0 +1,28 @@
+.title {
+    @apply font-bold text-4xl;
+  }
+  
+  .subtitle {
+    @apply text-lg text-gray-500 my-4;
+  }
+  
+  .form {
+    @apply flex flex-col gap-4;
+  }
+  
+  .input {
+    @apply h-10 border-b p-2;
+  }
+  
+  .primaryButton {
+    @apply bg-red-600 text-white h-14;
+  }
+  
+  .googleButton {
+    @apply flex items-center justify-center gap-2 border border-gray-400 h-14;
+  }
+  
+  .googleIcon {
+    @apply w-6 h-6 inline;
+  }
+  

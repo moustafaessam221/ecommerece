@@ -1,0 +1,19 @@
+.footer {
+  @apply flex flex-col bg-black text-white px-20 absolute w-full bottom-0 hidden; 
+}
+
+.footer-content {
+  @apply flex justify-between w-full pt-10;
+}
+
+.footer-column {
+  @apply flex flex-col gap-2;
+}
+
+.footer-title {
+  @apply font-bold text-lg mb-1;
+}
+
+.footer-input {
+  @apply mt-2 p-2 border border-gray-300 rounded;
+}
