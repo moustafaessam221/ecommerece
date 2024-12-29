@@ -12,25 +12,36 @@ import CartPage from "./pages/Cart/CartPage";
 import WishListPage from "./pages/WishList/WishListPage";
 import SearchResults from "./pages/SearchResults/SearchResults";
 import AllProducts from "./pages/AllProducts/AllProducts";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import NoPage from "./pages/NoPage/NoPage";
+import UserProfile from "./pages/UserProfile/UserProfile";
 
 const App = () => {
+  const { role } = useAuth();
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/products/:category" element={<ProductsPage />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/wishlist" element={<WishListPage />} />
-        <Route path="/search/:query" element={<SearchResults />} />
-        <Route path="/allproducts" element={<AllProducts />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <div className="flex flex-col min-h-screen">
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/products/:category" element={<ProductsPage />} />
+          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/wishlist" element={<WishListPage />} />
+          <Route path="/search/:query" element={<SearchResults />} />
+          <Route path="/allproducts" element={<AllProducts />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="*" element={<NoPage />} />
+          {role === "admin" && (
+            <Route path="/dashboard/*" element={<Dashboard />} />
+          )}
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 };
 export default App;

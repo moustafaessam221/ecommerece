@@ -7,10 +7,16 @@ export const AuthProvider = ({ children }) => {
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
     const unsubscribe = observeAuthState((user) => {
       setUser(user);
+      if(user.uid === process.env.REACT_APP_ADMIN_UID){
+        setRole("admin");
+      } else {
+        setRole("user");
+      }
       setLoading(false);
     });
 
@@ -18,7 +24,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, role }}>
       {children}
     </AuthContext.Provider>
   );

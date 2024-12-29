@@ -9,6 +9,8 @@ export function ProductInfo({
   setQuantity,
   handleAddToCart,
   handleAddToWishList,
+  cartLoading,
+  wishListLoading,
 }) {
   return (
     <div className="flex-1 space-y-6">
@@ -35,12 +37,14 @@ export function ProductInfo({
         <button
           className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition-colors"
           onClick={handleAddToCart}
+          disabled={cartLoading}
         >
           Buy Now
         </button>
         <button
           className="p-3 border border-gray-300 rounded-md hover:bg-gray-100"
           onClick={handleAddToWishList}
+          disabled={wishListLoading}
         >
           <HeartIcon className="w-6 h-6" />
         </button>

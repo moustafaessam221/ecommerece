@@ -3,7 +3,10 @@ import ProductCard from "../../../components/Product/ProductCard";
 
 import useHorizontalScroll from "../../../utils/useHorizontalScroll";
 import styles from "./ScrollButton.module.css";
-import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
+} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 function FlashSales({ products }) {
@@ -40,7 +43,10 @@ function FlashSales({ products }) {
             <ProductCard key={product.id} product={product} />
           ))}
       </div>
-      <Link to="/allproducts" className="bg-red-600 w-52 h-[56px] text-white px-8 py-3 font-semibold mx-auto block mt-12">
+      <Link
+        to="/allproducts"
+        className="bg-red-600 w-52 h-[56px] text-white px-8 py-3 font-semibold mx-auto mt-12 hover:bg-red-700 flex items-center justify-center"
+      >
         View All Products
       </Link>
       <div className="mt-12 border-b border-black"></div>

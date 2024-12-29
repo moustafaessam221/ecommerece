@@ -7,11 +7,19 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth } from "./config";
+import { auth, db } from "./config";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
+// sign up with email
 export const signUpWithEmail = async (email, password) => {
   try {
-    const user = await createUserWithEmailAndPassword(auth, email, password);
+    const userCredntial = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredntial.user;
+    await createProfileDocument(user);
     return user;
   } catch (error) {
     console.error("Error creating user:", error);
@@ -19,6 +27,7 @@ export const signUpWithEmail = async (email, password) => {
   }
 };
 
+// sign in
 export const signInWithEmail = async (email, password) => {
   try {
     const user = await signInWithEmailAndPassword(auth, email, password);
@@ -33,12 +42,13 @@ export const signInWithEmail = async (email, password) => {
 export const signInWithGoogle = async () => {
   try {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    await createProfileDocument(user);
   } catch (error) {
     console.error("Error signing in with Google:", error);
   }
 };
-
 
 // sign out
 export const signOutUser = async () => {
@@ -49,10 +59,46 @@ export const signOutUser = async () => {
   }
 };
 
+// create a profile document for the user
+export const createProfileDocument = async (user) => {
+  try {
+    const profileRef = doc(db, "users", user.uid, "profile", user.uid);
+    await setDoc(
+      profileRef,
+      {
+        uid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        photoURL: user.photoURL,
+        createdAt: user.metadata.creationTime,
+        role: "user",
+        address: "",
+        phoneNumber: "",
+        providerId: user.providerData[0].providerId,
+      },
+      { merge: true }
+    );
+    console.log("Profile document created successfully");
+  } catch (error) {
+    console.error("Error creating profile document:", error);
+  }
+};
+
+// fetch user profile
+export const fetchUserProfile = async (userId) => {
+  try {
+    const userProfileRef = doc(db, "users", userId, "profile", userId);
+    const userProfileSnapshot = await getDoc(userProfileRef);
+    return userProfileSnapshot.data();
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    throw error;
+  }
+};
+
 // observe auth state
 export const observeAuthState = (callback) => {
   onAuthStateChanged(auth, (user) => {
-    console.log("Auth state changed:", user);
     callback(user);
   });
 };

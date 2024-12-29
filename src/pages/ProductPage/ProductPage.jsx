@@ -13,12 +13,15 @@ function ProductPage() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const { user } = useAuth();
+  const [cartLoading, setCartLoading] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
 
   useEffect(() => {
     getProductById(id).then((data) => setProduct(data));
   }, [id]);
 
   const handleAddToCart = async () => {
+    setCartLoading(true);
     try {
       if (!user) {
         alert("Please login to add to cart");
@@ -27,10 +30,13 @@ function ProductPage() {
       await addToCart(user.uid, id, quantity);
     } catch (error) {
       console.error("Error adding to cart:", error);
+    } finally {
+      setCartLoading(false);
     }
   };
 
   const handleAddToWishList = async () => {
+    setWishlistLoading(true);
     try {
       if (!user) {
         alert("Please login to add to wishlist");
@@ -39,6 +45,8 @@ function ProductPage() {
       await addToWishlist(user.uid, id);
     } catch (error) {
       console.error("Error adding to wishlist:", error);
+    } finally {
+      setWishlistLoading(false);
     }
   };
 
@@ -58,6 +66,8 @@ function ProductPage() {
               setQuantity={setQuantity}
               handleAddToCart={handleAddToCart}
               handleAddToWishList={handleAddToWishList}
+              cartLoading={cartLoading}
+              wishlistLoading={wishlistLoading}
             />
           </div>
         </div>

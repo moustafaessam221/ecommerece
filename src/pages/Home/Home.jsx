@@ -5,6 +5,7 @@ import FlashSales from "./FlashSales/FlashSales";
 import SideMenu from "./SideMenu";
 import Categories from "./FlashSales/Categories";
 import Newsletter from "./FlashSales/NewsLetter";
+import TopRated from "./TopRated/TopRated";
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -22,6 +23,7 @@ function Home() {
       <div className="px-4 lg:px">
         <FlashSales products={products} />
         <Categories />
+        <TopRated />
         <Newsletter />
       </div>
     </>

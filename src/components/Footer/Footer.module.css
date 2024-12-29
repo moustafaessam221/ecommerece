@@ -1,19 +1,39 @@
 .footer {
-  @apply flex flex-col bg-black text-white px-20 absolute w-full bottom-0 hidden; 
+  @apply flex flex-col bg-black text-white px-4 lg:px-20 py-10 w-full;
 }
 
 .footer-content {
-  @apply flex justify-between w-full pt-10;
+  @apply flex flex-wrap justify-between w-full gap-10 pt-10;
 }
 
 .footer-column {
-  @apply flex flex-col gap-2;
+  @apply flex flex-col gap-4 min-w-[200px];
 }
 
 .footer-title {
-  @apply font-bold text-lg mb-1;
+  @apply font-bold text-lg mb-2;
 }
 
 .footer-input {
-  @apply mt-2 p-2 border border-gray-300 rounded;
+  @apply mt-2 p-2 border border-gray-300 rounded w-full max-w-sm;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    @apply flex flex-col items-center gap-8;
+  }
+
+  .footer-column {
+    @apply items-center text-center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    @apply px-4 py-6;
+  }
+
+  .footer-input {
+    @apply w-full;
+  }
 }

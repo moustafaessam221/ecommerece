@@ -4,10 +4,10 @@ import AD from "./AD";
 import { useAuth } from "../../context/AuthContext";
 import { Bars2Icon } from "@heroicons/react/20/solid";
 import { signOutUser } from "../../firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 
-const MenuLinks = ({ user, handleLogout }) => (
+const MenuLinks = ({ user, handleLogout, role }) => (
   <ul className="flex flex-col md:flex-row gap-7 font-semibold">
     <li>
       <Link to="/home">Home</Link>
@@ -24,9 +24,14 @@ const MenuLinks = ({ user, handleLogout }) => (
           Logout
         </button>
       </li>
-    ): (
+    ) : (
       <li>
         <Link to="/signin">Login</Link>
+      </li>
+    )}
+    {role === "admin" && (
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
       </li>
     )}
   </ul>
@@ -34,7 +39,9 @@ const MenuLinks = ({ user, handleLogout }) => (
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, role } = useAuth();
+
+  const location = useLocation();
 
   const handleLogout = () => {
     signOutUser();
@@ -45,7 +52,7 @@ function Navbar() {
     <>
       <AD />
       {/* Desktop Navbar */}
-      <nav className="hidden md:flex justify-between items-center lg:px-20 px-4 py-5 border-b">
+      <nav className="hidden lg:flex justify-between items-center lg:px-20 px-4 py-5 border-b mb-4">
         <Link
           className="font-bold text-2xl"
           style={{ fontFamily: "cursive" }}
@@ -53,14 +60,14 @@ function Navbar() {
         >
           Exclusive
         </Link>
-        <MenuLinks user={user} handleLogout={handleLogout} />
+        <MenuLinks user={user} role={role} handleLogout={handleLogout} />
         <div>
           <Searchbar />
         </div>
       </nav>
 
       {/* Mobile Navbar */}
-      <div className="md:hidden flex justify-between items-center px-4 py-5 border-b">
+      <div className="lg:hidden flex justify-between items-center px-4 py-5 border-b">
         <Link
           className="font-bold text-2xl"
           style={{ fontFamily: "cursive" }}

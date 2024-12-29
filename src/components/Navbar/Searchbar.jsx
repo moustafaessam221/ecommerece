@@ -2,12 +2,11 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import React, { useEffect, useRef, useState } from "react";
 import CartIcon from "./CartIcon";
 import Favourites from "./HeartIcon";
-import { searchProducts } from "../../services/products";
 import SearchDropMenu from "./SearchResults/SearchDropMenu";
 import { useNavigate } from "react-router-dom";
+import { searchProducts } from "../../services/products";
 
 function Searchbar() {
-
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -27,9 +26,8 @@ function Searchbar() {
     if (searchTerm.trim()) {
       navigate(`/search/${searchTerm}`);
       setSearchTerm([]);
-    } 
-  }
-
+    }
+  };
 
   const handleClickOutside = (event) => {
     if (
@@ -51,7 +49,12 @@ function Searchbar() {
 
   return (
     <div className="flex gap-4">
-      <form action="submit" className="relative" onChange={handleSearch} onSubmit={handleSearchSubmit}>
+      <form
+        action="submit"
+        className="relative"
+        onChange={handleSearch}
+        onSubmit={handleSearchSubmit}
+      >
         <input
           type="text"
           placeholder="Search for products..."

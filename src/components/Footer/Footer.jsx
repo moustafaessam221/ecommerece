@@ -39,8 +39,8 @@ function Footer() {
       </div>
       {/* copyright */}
       <div>
-        <p className="text-center py-4 text-gray-400 text-lg opacity-50">
-          &copy; Copyright Rimel 2022. All right reserved
+        <p className="text-center py-4 text-gray-400 text-sm opacity-50">
+          &copy; Copyright Exclusive 2024. All rights reserved
         </p>
       </div>
     </footer>
