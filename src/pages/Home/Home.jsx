@@ -21,8 +21,8 @@ function Home() {
         <Carousel />
       </div>
       <div className="px-4 lg:px">
-        <FlashSales products={products} />
         <Categories />
+        <FlashSales products={products} />
         <TopRated />
         <Newsletter />
       </div>

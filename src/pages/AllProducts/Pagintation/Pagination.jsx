@@ -8,7 +8,7 @@ function Pagination({ page, setPage }) {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-4 my-6">
+    <div className="flex items-center justify-center space-x-4 mt-2 mb-4">
       <button
         onClick={handlePrev}
         disabled={page === 1}

@@ -63,22 +63,25 @@ export const signOutUser = async () => {
 export const createProfileDocument = async (user) => {
   try {
     const profileRef = doc(db, "users", user.uid, "profile", user.uid);
-    await setDoc(
-      profileRef,
-      {
-        uid: user.uid,
-        email: user.email,
-        name: user.displayName,
-        photoURL: user.photoURL,
-        createdAt: user.metadata.creationTime,
-        role: "user",
-        address: "",
-        phoneNumber: "",
-        providerId: user.providerData[0].providerId,
-      },
-      { merge: true }
-    );
-    console.log("Profile document created successfully");
+    if (await getDoc(profileRef).then((doc) => doc.exists())) {
+      return;
+    } else {
+      await setDoc(
+        profileRef,
+        {
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          photoURL: user.photoURL,
+          createdAt: user.metadata.creationTime,
+          role: "user",
+          address: "",
+          phoneNumber: "",
+          providerId: user.providerData[0].providerId,
+        },
+        { merge: true }
+      );
+    }
   } catch (error) {
     console.error("Error creating profile document:", error);
   }

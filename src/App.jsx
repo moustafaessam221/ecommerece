@@ -15,9 +15,15 @@ import AllProducts from "./pages/AllProducts/AllProducts";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import NoPage from "./pages/NoPage/NoPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import CheckOut from "./pages/Payment/CheckOut";
+import SpinnerLoading from "./components/loading/SpinnerLoading";
 
 const App = () => {
-  const { role } = useAuth();
+  const { role, user, loading } = useAuth();
+
+  if (loading) {
+    return <SpinnerLoading />; 
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <BrowserRouter>
@@ -38,6 +44,7 @@ const App = () => {
           {role === "admin" && (
             <Route path="/dashboard/*" element={<Dashboard />} />
           )}
+          <Route path="/checkout" element={<CheckOut />} />
         </Routes>
         <Footer />
       </BrowserRouter>

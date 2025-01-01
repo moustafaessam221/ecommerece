@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { calculateCartTotal } from "../../utils/CartCalculations";
 import CartItem from "./CartItem";
@@ -33,9 +34,10 @@ const CartPage = () => {
             <p className="text-lg font-semibold text-gray-800 mb-2">
               Total Price: ${totalPrice.toFixed(2)}
             </p>
-            <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md">
+            <Link className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md"
+              to="/checkout">
               Checkout
-            </button>
+            </Link>
           </div>
         </div>
       ) : (

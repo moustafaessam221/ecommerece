@@ -33,8 +33,13 @@ function SignIn() {
 
   // google sign-in
   const handleGoogleSignIn = async () => {
-    await signInWithGoogle();
-    navigate("/home");
+    try {
+      await signInWithGoogle();
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    } finally {
+      navigate("/");
+    }
   };
 
   return (

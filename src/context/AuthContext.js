@@ -4,23 +4,26 @@ import { observeAuthState } from "../firebase/auth";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); 
   const [role, setRole] = useState(null);
 
   useEffect(() => {
     const unsubscribe = observeAuthState((user) => {
       setUser(user);
-      if(user.uid === process.env.REACT_APP_ADMIN_UID){
-        setRole("admin");
+      if (user) {
+        if (user.uid === process.env.REACT_APP_ADMIN_UID) {
+          setRole("admin");
+        } else {
+          setRole("user");
+        }
       } else {
-        setRole("user");
+        setRole(null);
       }
-      setLoading(false);
+      setLoading(false); 
     });
 
-    return () => unsubscribe(); // Cleanup on unmount
+    return () => unsubscribe();
   }, []);
 
   return (

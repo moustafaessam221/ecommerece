@@ -1,6 +1,6 @@
 import { EyeIcon, HeartIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import renderRatingStars from "../../utils/renderRatingStars";
 import { useAuth } from "../../context/AuthContext";
 import {
@@ -16,11 +16,13 @@ function ProductCard({ product }) {
 
   const [isInWishlist, setIsInWishlist] = useState(false);
 
+  const navigate = useNavigate();
+
   // Add to wishlist
   const handleAddToWishList = async () => {
     try {
       if (!user) {
-        alert("Please login to add to wishlist");
+        navigate("/signin");
         return;
       }
       await addToWishlist(user.uid, String(id));
@@ -70,20 +72,19 @@ function ProductCard({ product }) {
 
   return (
     <Link
-      className="w-64 bg-white p-3 transition-all hover:shadow-lg flex-shrink-0"
+      className="w-64 bg-white p-3 transition-transform duration-300 hover:shadow-xl hover:scale-105 flex-shrink-0"
       to={`/product/${product.id}`}
     >
-      {/* Image Container */}
       <div className="relative aspect-square overflow-hidden rounded-md">
         <img
           src={product.thumbnail}
           alt={product.title}
-          className="h-full w-full object-cover transition-transform duration-300 hover:scale-105 bg-gray-100"
+          className="h-full w-full object-cover transition-transform duration-300 hover:scale-110 bg-gray-100"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute right-2 top-2 flex gap-2 flex-col">
-          {/* Heart Icon */}
           <button
-            className={`rounded-full p-2 transition-colors ${
+            className={`rounded-full p-2 transition-transform ${
               isInWishlist
                 ? "bg-white text-red-500"
                 : "bg-white/90 hover:bg-white hover:text-red-500"
@@ -99,24 +100,20 @@ function ProductCard({ product }) {
             }}
           >
             {isInWishlist ? (
-              <HeartIconSolid className="h-6 w-6 text-red-500" />
+              <HeartIconSolid className="h-6 w-6 text-red-500 hover:scale-110 hover:rotate-6 transition-transform duration-200" />
             ) : (
-              <HeartIcon className="h-5 w-5" />
+              <HeartIcon className="h-5 w-5 hover:scale-110 hover:rotate-6 transition-transform duration-200" />
             )}
           </button>
-          {/* Eye Icon */}
-          <button className="rounded-full bg-white/90 p-2 transition-colors hover:bg-white hover:text-red-500">
+          <button className="rounded-full bg-white/90 p-2 transition-colors hover:bg-white hover:text-red-500 hover:scale-110">
             <EyeIcon className="h-5 w-5" />
           </button>
         </div>
       </div>
-
-      {/* Content */}
       <div className="mt-4 space-y-2">
-        <h3 className="overflow-hidden text-ellipsis whitespace-nowrap font-medium">
+        <h3 className="overflow-hidden text-ellipsis whitespace-nowrap font-medium hover:text-red-500 hover:translate-x-1 transition-transform duration-200">
           {product.title}
         </h3>
-
         <div className="flex items-baseline gap-2">
           <span className="text-lg font-bold">${product.price}</span>
           {product.discountPercentage > 0 && (
@@ -125,12 +122,11 @@ function ProductCard({ product }) {
             </span>
           )}
         </div>
-
         <div className="flex items-center gap-2">
           <div className="flex">
             {renderRatingStars(product.rating)}
             <p className="text-sm text-gray-500 ml-2 font-semibold">
-              ({product.reviews.length})
+              ({product.rating})
             </p>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProductById } from "../../services/products";
 import { useAuth } from "../../context/AuthContext";
 import { addToCart, addToWishlist } from "../../firebase/storage";
@@ -16,6 +16,8 @@ function ProductPage() {
   const [cartLoading, setCartLoading] = useState(false);
   const [wishlistLoading, setWishlistLoading] = useState(false);
 
+
+  const navigate = useNavigate();
   useEffect(() => {
     getProductById(id).then((data) => setProduct(data));
   }, [id]);
@@ -24,7 +26,7 @@ function ProductPage() {
     setCartLoading(true);
     try {
       if (!user) {
-        alert("Please login to add to cart");
+        navigate("/signin");
         return;
       }
       await addToCart(user.uid, id, quantity);

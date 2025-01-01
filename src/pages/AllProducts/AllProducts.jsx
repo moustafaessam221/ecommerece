@@ -52,7 +52,7 @@ function AllProducts() {
         ) : products.length > 0 ? (
           <div className="space-y-8">
             <ProductList items={products} />
-            <div className="mt-8 flex justify-center">
+            <div className="mt-4 flex justify-center">
               <Pagination page={page} setPage={setPage} />
             </div>
           </div>

@@ -10,7 +10,6 @@ function TopRated() {
     const fetchTopRated = async () => {
       try {
         const response = await sortedProducts("rating", "desc");
-        console.log(response);
         setTopRated(response.products);
       } catch (error) {
         console.error("Error fetching top-rated products:", error);

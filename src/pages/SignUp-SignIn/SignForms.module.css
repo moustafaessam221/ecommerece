@@ -3,7 +3,7 @@
   }
   
   .subtitle {
-    @apply text-lg text-gray-500 my-4;
+    @apply text-lg text-gray-500 my-4 ;
   }
   
   .form {

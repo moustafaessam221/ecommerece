@@ -1,11 +1,10 @@
+import { Bars3Icon } from "@heroicons/react/16/solid";
 import React, { useState } from "react";
-import Searchbar from "./Searchbar";
-import AD from "./AD";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { Bars2Icon } from "@heroicons/react/20/solid";
 import { signOutUser } from "../../firebase/auth";
-import { Link, useLocation } from "react-router-dom";
-import { HeartIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
+import AD from "./AD";
+import Searchbar from "./Searchbar";
 
 const MenuLinks = ({ user, handleLogout, role }) => (
   <ul className="flex flex-col md:flex-row gap-7 font-semibold">
@@ -41,7 +40,6 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, role } = useAuth();
 
-  const location = useLocation();
 
   const handleLogout = () => {
     signOutUser();
@@ -75,11 +73,14 @@ function Navbar() {
         >
           Exclusive
         </Link>
-        <Bars2Icon
-          className="w-8 h-8 cursor-pointer"
-          onClick={() => setIsOpen((prev) => !prev)}
-          aria-expanded={isOpen}
-        />
+        <button onClick={() => setIsOpen((prev) => !prev)}>
+          <Bars3Icon
+            className={`w-8 h-8 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+            aria-expanded={isOpen}
+          />
+        </button>
       </div>
 
       <div

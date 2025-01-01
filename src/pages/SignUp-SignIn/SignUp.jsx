@@ -4,7 +4,7 @@ import GoogleIcon from "../../assets/icons/Icon-Google.svg";
 import styles from "./SignForms.module.css";
 import { signInWithGoogle, signUpWithEmail } from "../../firebase/auth";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
   const { user } = useAuth();
@@ -64,6 +64,9 @@ function SignUp() {
             <img src={GoogleIcon} alt="" className={styles.googleIcon} /> Sign
             up with Google
           </button>
+        <p className="text-center mt-4 text-gray-600">
+          Already have an account? <Link to="/signin" className="text-blue-600">Sign in</Link>
+        </p>
         </form>
       </div>
     </Layout>
