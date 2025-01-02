@@ -3,6 +3,8 @@ import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import "./styles/tailwind.css";
 import Home from "./pages/Home/Home";
+import AboutUs from "./pages/About/AboutUs";
+import ContactUs from "./pages/Contact/ContactUs";
 import SignUp from "./pages/SignUp-SignIn/SignUp";
 import SignIn from "./pages/SignUp-SignIn/SignIn";
 import { useAuth } from "./context/AuthContext";
@@ -31,6 +33,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/products/:category" element={<ProductsPage />} />
