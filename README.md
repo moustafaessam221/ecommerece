@@ -49,7 +49,7 @@ A full-featured e-commerce platform built with React.js, showcasing modern web d
 - React.js 18
 - TypeScript
 - Tailwind CSS
-- Lucide React (icons)
+- heroicons (icons)
 - React Router v6
 
 ### Backend & Services
